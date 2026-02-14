@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kutia Media Blog | Brewing Stories</title>
+    <meta name="description" content="Kutia Media. A blend of culture, stories, and digital craft. Coming soon.">
+
+    <!-- Google Fonts: Elegant Serif + Clean Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Manrope:wght@300;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-paper: #f4f1ea;
+            --text-ink: #2b2825;
+            --accent-clay: #c75b45;
+            --accent-gold: #e6b358;
+            --grain-color: rgba(0,0,0,0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-paper);
+            color: var(--text-ink);
+            font-family: 'Manrope', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- Grain/Noise Texture (CSS Only) --- */
+        .texture-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.6;
+            filter: contrast(120%) brightness(100%);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* --- Ambient Gradient Spot --- */
+        .ambient-glow {
+            position: absolute;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(230, 179, 88, 0.15) 0%, rgba(199, 91, 69, 0.05) 40%, transparent 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            animation: breathe 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes breathe {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.5; }
+        }
+
+        /* --- Layout --- */
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 650px;
+            padding: 0 20px;
+        }
+
+        /* --- Typography --- */
+        .logo {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent-clay);
+            margin-bottom: 2rem;
+            display: inline-block;
+            border-bottom: 1px solid var(--accent-clay);
+            padding-bottom: 5px;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4.5rem;
+            font-weight: 400;
+            line-height: 0.95;
+            margin-bottom: 1.5rem;
+            color: var(--text-ink);
+        }
+
+        h1 span {
+            font-style: italic;
+            color: var(--accent-clay);
+        }
+
+        p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            line-height: 1.6;
+            color: #5a5550;
+            margin-bottom: 3rem;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- Form --- */
+        .subscribe-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(43, 40, 37, 0.3);
+            padding: 10px 0;
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
+            color: var(--text-ink);
+            border-radius: 0;
+            outline: none;
+            text-align: center;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="email"]:focus {
+            border-bottom-color: var(--accent-clay);
+        }
+
+        input[type="email"]::placeholder {
+            color: rgba(43, 40, 37, 0.4);
+            font-style: italic;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        button {
+            margin-top: 20px;
+            background-color: var(--text-ink);
+            color: var(--bg-paper);
+            border: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            background-color: var(--accent-clay);
+            transform: translateY(-2px);
+        }
+
+        /* --- Footer --- */
+        .footer-note {
+            margin-top: 4rem;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            h1 { font-size: 3rem; }
+            p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Texture & Glow -->
+    <div class="texture-overlay"></div>
+    <div class="ambient-glow"></div>
+
+    <div class="content-wrapper">
+        <div class="logo">Kutia Media Blog</div>
+
+        <h1>
+            Mixing culture,<br>
+            <span>craft</span> & stories.
+        </h1>
+
+        <p>
+            We are preparing a rich blend of thoughtful articles and visual storytelling. 
+            The table is being set.
+        </p>
+
+        <form class="subscribe-form" onsubmit="event.preventDefault(); alert('You are on the list. Talk soon.');">
+            <div class="input-wrapper">
+                <input type="email" placeholder="Leave your email to get the first taste..." required>
+            </div>
+            <button type="submit">Join the Table</button>
+        </form>
+
+        <div class="footer-note">
+            Kyiv • Est. <script>document.write(new Date().getFullYear())</script>
+        </div>
+    </div>
+
+</body>
+</html>
